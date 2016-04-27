@@ -67,12 +67,6 @@ public class StartScreen extends SimpleLayoutGameActivity implements TextWatcher
     protected Scene onCreateScene() throws IOException {
 
         this.mEngine.registerUpdateHandler(new FPSLogger());
-
-        /*startScene = new Scene();
-        startScene.getBackground().setColor(0.09804f, 0.6274f, 0.8784f);
-
-        final VertexBufferObjectManager vertexBufferObjectManager = this.getVertexBufferObjectManager();
-        this.mText = new Text(50, 40, this.mFont, "", 800, new TextOptions(AutoWrap.LETTERS, AUTOWRAP_WIDTH, HorizontalAlign.CENTER), vertexBufferObjectManager);*/
         return null;
     }
 

@@ -21,6 +21,7 @@ public class Player implements Serializable{
         this.name = playerName;
         this.game = game;
         inventory = new ArrayList<Item>();
+        inventory.add(new jlstanford.bsu.edu.game.Map(this));
     }
 
     public Point getPlayerPostion(){
