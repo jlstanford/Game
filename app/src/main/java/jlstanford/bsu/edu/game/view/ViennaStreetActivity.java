@@ -1,6 +1,7 @@
 package jlstanford.bsu.edu.game.view;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 
 import org.andengine.engine.Engine;
 import org.andengine.engine.camera.Camera;
@@ -14,8 +15,11 @@ import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.SpriteBackground;
 import org.andengine.entity.sprite.ButtonSprite;
 import org.andengine.entity.sprite.Sprite;
+import org.andengine.entity.text.Text;
 import org.andengine.entity.util.FPSLogger;
 import org.andengine.input.touch.TouchEvent;
+import org.andengine.opengl.font.Font;
+import org.andengine.opengl.font.FontFactory;
 import org.andengine.opengl.texture.TextureOptions;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
@@ -53,6 +57,7 @@ public class ViennaStreetActivity extends SimpleBaseGameActivity {
     private HashMap<Item,ButtonSprite> itemMap = new HashMap<Item,ButtonSprite>();
     private ButtonSprite horseHairSprite;
     private Entity inventoryEntity = new Entity(730,90);
+    private Font font;
 
     @Override
     public EngineOptions onCreateEngineOptions() {
@@ -71,6 +76,9 @@ public class ViennaStreetActivity extends SimpleBaseGameActivity {
         backgroundBitmapTextureAtlas = new BitmapTextureAtlas(this.getTextureManager(),4096,2048, TextureOptions.NEAREST_PREMULTIPLYALPHA);
         backgroundTiledTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(backgroundBitmapTextureAtlas, this, "ViennaStreet.jpg", 0, 0);
         backgroundBitmapTextureAtlas.load();
+
+        font = FontFactory.create(this.getFontManager(), this.getTextureManager(), 256, 256, Typeface.create("Proxima Nova", Typeface.BOLD), 32);
+        font.load();
 
         setGuitarStringImage();
         itemMap.put(guitarStrings, guitarStringSprite);
@@ -101,10 +109,15 @@ public class ViennaStreetActivity extends SimpleBaseGameActivity {
     protected Scene onCreateScene() {
         this.mEngine.registerUpdateHandler(new FPSLogger());
 
+
+        final Text backButtonText = new Text(0,0,this.font,"BACK",this.getVertexBufferObjectManager());
         final Entity backButton = new Entity(400, 520, 100, 100);
         final Rectangle backRectangle = new Rectangle(0,0,200,100,new VertexBufferObjectManager());
+        backRectangle.setColor(Color.PINK);
         backButton.attachChild(backRectangle);
+        backButton.attachChild(backButtonText);
         viennaStreetScene.attachChild(backButton);
+
 
 
         inventoryEntity.attachChild(new Rectangle(0,0,125,780,new VertexBufferObjectManager()));

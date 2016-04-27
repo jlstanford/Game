@@ -16,6 +16,7 @@ import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.SpriteBackground;
 import org.andengine.entity.sprite.ButtonSprite;
 import org.andengine.entity.sprite.Sprite;
+import org.andengine.entity.text.AutoWrap;
 import org.andengine.entity.text.Text;
 import org.andengine.entity.util.FPSLogger;
 import org.andengine.input.touch.TouchEvent;
@@ -27,6 +28,7 @@ import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegion
 import org.andengine.opengl.texture.region.TextureRegion;
 import org.andengine.opengl.vbo.VertexBufferObjectManager;
 import org.andengine.ui.activity.SimpleBaseGameActivity;
+import org.andengine.util.adt.align.HorizontalAlign;
 import org.andengine.util.adt.color.Color;
 
 import java.io.IOException;
@@ -155,7 +157,11 @@ public class ViennaPracticeActivity extends SimpleBaseGameActivity {
         beethovenEntity.attachChild(beethovenSprite);
         viennaPracticeScene.attachChild(beethovenEntity);
 
-        final Text beethovenSpeech = new Text(0,70,this.font,"...Alas I, the great Beethoven, have broken my strings!",this.getVertexBufferObjectManager());
+
+        final Text beethovenSpeech = new Text(0,70,this.font,"...Alas!\nI, the great Beethoven, have broken my strings!",this.getVertexBufferObjectManager());
+        beethovenSpeech.setWidth(850);
+        beethovenSpeech.setAutoWrap(AutoWrap.NONE);
+        beethovenSpeech.setHorizontalAlign(HorizontalAlign.CENTER);
 
         //org.andengine.entity.scene.menu.item.IMenuItem; use this possibly make inventory a menu
         //org.andengine.entity.scene.menu.MenuScene;
