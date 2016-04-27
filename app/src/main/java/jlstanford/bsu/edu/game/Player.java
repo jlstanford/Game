@@ -61,7 +61,7 @@ public class Player implements Serializable{
         Map validCombinationsMap = this.getGame().getValidCombinationsMap();
         Map combinationResultsMap = this.getGame().getCombinationResultsMap();
 
-        if(itemOne == validCombinationsMap.get(itemTwo)){
+        if(itemTwo == validCombinationsMap.get(itemOne)){
 
         }
     }

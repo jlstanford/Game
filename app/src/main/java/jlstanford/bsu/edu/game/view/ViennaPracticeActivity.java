@@ -134,14 +134,10 @@ public class ViennaPracticeActivity extends SimpleBaseGameActivity {
      */
     @Override
     protected Scene onCreateScene() {
-
         this.getWindowManager().getDefaultDisplay().getMetrics(metrics);
         this.mEngine.registerUpdateHandler(new FPSLogger());
-
-
         inventoryEntity.attachChild(new Rectangle(0,0,125,780,new VertexBufferObjectManager()));
         viennaPracticeScene.attachChild(inventoryEntity);
-
 
         final Entity doorEntity = new Entity(50,270,100,100);
         Rectangle r = new Rectangle(0,0,120,300,new VertexBufferObjectManager());
@@ -151,21 +147,13 @@ public class ViennaPracticeActivity extends SimpleBaseGameActivity {
         viennaPracticeScene.attachChild(doorEntity);
 
         final Entity beethovenEntity = new Entity(CAMERA_WIDTH/2,CAMERA_HEIGHT/2);
-     /*  Rectangle beethovenRectangle = new Rectangle(0,0,100,100,new VertexBufferObjectManager());
-        beethovenRectangle.setSkewX(-10);
-        beethovenRectangle.setSkewY(20);*/
         beethovenEntity.attachChild(beethovenSprite);
         viennaPracticeScene.attachChild(beethovenEntity);
 
-
-        final Text beethovenSpeech = new Text(0,70,this.font,"...Alas!\nI, the great Beethoven, have broken my strings!",this.getVertexBufferObjectManager());
+        final Text beethovenSpeech = new Text(0, 70, this.font, "...Alas!\nI, the great Beethoven, have broken my strings!", this.getVertexBufferObjectManager());
         beethovenSpeech.setWidth(850);
         beethovenSpeech.setAutoWrap(AutoWrap.NONE);
         beethovenSpeech.setHorizontalAlign(HorizontalAlign.CENTER);
-
-        //org.andengine.entity.scene.menu.item.IMenuItem; use this possibly make inventory a menu
-        //org.andengine.entity.scene.menu.MenuScene;
-
 
         guitarStringSprite.setColor(Color.WHITE);
         guitarStringSprite.setOnClickListener(new ButtonSprite.OnClickListener() {
@@ -208,28 +196,17 @@ public class ViennaPracticeActivity extends SimpleBaseGameActivity {
                    player = ViennaPracticeActivity.this.game.getPlayer();
                    ViennaPracticeActivity.this.game.handleItemClick(new GuitarStrings(player));
                    ViennaPracticeActivity.this.toastOnUiThread("Got Guitar Strings!");
-                   //inventoryEntity.attachChild(guitarStringSprite);
                    loadInventoryItems();
-               }/* else if (pSceneTouchEvent.isActionDown() && ((xCoordinate < CAMERA_WIDTH / 2 + 100 && xCoordinate > CAMERA_WIDTH / 2) && (yCoordinate < CAMERA_HEIGHT / 2 + 100 && yCoordinate > CAMERA_HEIGHT / 2 - 100))) {
-                   beethovenEntity.attachChild(beethovenSpeech);
-                   Timer timer = new Timer();
-                   Long delayTime = (long) (30 * 100);
-                   timer.schedule(new TimerTask() {
-                       @Override
-                       public void run() {
-                           beethovenEntity.detachChild(beethovenSpeech);
-                       }
-                   }, delayTime);
-               }*/ else {
+               } else {
                }
                return false;
            }
        });
+
         loadInventoryItems();
         final Sprite spriteBG = new Sprite(405,240,CAMERA_WIDTH,CAMERA_HEIGHT,this.backgroundTiledTextureRegion,this.getVertexBufferObjectManager());
         SpriteBackground bg = new SpriteBackground(spriteBG);
         viennaPracticeScene.setBackground(bg);
-
 
         return viennaPracticeScene;
     }

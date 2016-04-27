@@ -48,7 +48,7 @@ public class Gameplay implements Serializable{
         }else{player.addToInventory(item);}
     }
 
-    /*when button is pressed*/
+    
     public void handleUseClick(Item item){
         player.useItem(item);
     }

@@ -40,11 +40,12 @@ import jlstanford.bsu.edu.game.Player;
 
 
 public class ViennaStreetActivity extends SimpleBaseGameActivity {
-    private boolean scheduleEngineStart;
     private static final int CAMERA_WIDTH = 800;
     private static final int CAMERA_HEIGHT = 480;
+    private boolean scheduleEngineStart;
     private TextureRegion viennaStreetTextureRegion;
-    private Scene viennaStreetScene = new Scene();;
+    private Scene viennaStreetScene = new Scene();
+    ;
     private Gameplay game;
     private BitmapTextureAtlas backgroundBitmapTextureAtlas;
     private ITextureRegion backgroundTiledTextureRegion;
@@ -54,26 +55,24 @@ public class ViennaStreetActivity extends SimpleBaseGameActivity {
     private ButtonSprite guitarStringSprite;
     private GuitarStrings guitarStrings;
     private HorseHair horseHair;
-    private HashMap<Item,ButtonSprite> itemMap = new HashMap<Item,ButtonSprite>();
+    private HashMap<Item, ButtonSprite> itemMap = new HashMap<Item, ButtonSprite>();
     private ButtonSprite horseHairSprite;
-    private Entity inventoryEntity = new Entity(730,90);
+    private Entity inventoryEntity = new Entity(730, 90);
     private Font font;
 
     @Override
     public EngineOptions onCreateEngineOptions() {
-        final Camera camera = new Camera(0,0,CAMERA_WIDTH,CAMERA_HEIGHT);
-        return new EngineOptions(true, ScreenOrientation.LANDSCAPE_FIXED,new RatioResolutionPolicy(CAMERA_WIDTH,CAMERA_HEIGHT),camera);
+        final Camera camera = new Camera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
+        return new EngineOptions(true, ScreenOrientation.LANDSCAPE_FIXED, new RatioResolutionPolicy(CAMERA_WIDTH, CAMERA_HEIGHT), camera);
     }
 
     @Override
     protected void onCreateResources() throws IOException {
         game = (Gameplay) getIntent().getSerializableExtra("game");
-
-         guitarStrings = new GuitarStrings(game.getPlayer());
+        guitarStrings = new GuitarStrings(game.getPlayer());
         horseHair = new HorseHair(game.getPlayer());
-
         BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("gfx/");
-        backgroundBitmapTextureAtlas = new BitmapTextureAtlas(this.getTextureManager(),4096,2048, TextureOptions.NEAREST_PREMULTIPLYALPHA);
+        backgroundBitmapTextureAtlas = new BitmapTextureAtlas(this.getTextureManager(), 4096, 2048, TextureOptions.NEAREST_PREMULTIPLYALPHA);
         backgroundTiledTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(backgroundBitmapTextureAtlas, this, "ViennaStreet.jpg", 0, 0);
         backgroundBitmapTextureAtlas.load();
 
@@ -87,22 +86,22 @@ public class ViennaStreetActivity extends SimpleBaseGameActivity {
     }
 
     private void loadInventoryItems() {
-        for (Item i : itemMap.keySet()){
+        for (Item i : itemMap.keySet()) {
             attach(i);
         }
     }
 
     private void attach(Item i) {
-        if(this.game.getPlayer().hasInInventory(i)&& i instanceof GuitarStrings){
+        if (this.game.getPlayer().hasInInventory(i) && i instanceof GuitarStrings) {
             inventoryEntity.attachChild(itemMap.get(i));
         }
     }
 
     private void setGuitarStringImage() {
-        guitarStringsBitmapTextureAtlas = new BitmapTextureAtlas(this.getTextureManager(),128,64,TextureOptions.NEAREST_PREMULTIPLYALPHA);
-        guitarStringsTiledTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(guitarStringsBitmapTextureAtlas,this,"ExtraStrings.png",0,0);
+        guitarStringsBitmapTextureAtlas = new BitmapTextureAtlas(this.getTextureManager(), 128, 64, TextureOptions.NEAREST_PREMULTIPLYALPHA);
+        guitarStringsTiledTextureRegion = BitmapTextureAtlasTextureRegionFactory.createFromAsset(guitarStringsBitmapTextureAtlas, this, "ExtraStrings.png", 0, 0);
         guitarStringsBitmapTextureAtlas.load();
-        guitarStringSprite = new ButtonSprite(0,0,guitarStringsTiledTextureRegion,new VertexBufferObjectManager());
+        guitarStringSprite = new ButtonSprite(0, 0, guitarStringsTiledTextureRegion, new VertexBufferObjectManager());
     }
 
     @Override
@@ -110,17 +109,16 @@ public class ViennaStreetActivity extends SimpleBaseGameActivity {
         this.mEngine.registerUpdateHandler(new FPSLogger());
 
 
-        final Text backButtonText = new Text(0,0,this.font,"BACK",this.getVertexBufferObjectManager());
+        final Text backButtonText = new Text(0, 0, this.font, "BACK", this.getVertexBufferObjectManager());
         final Entity backButton = new Entity(400, 520, 100, 100);
-        final Rectangle backRectangle = new Rectangle(0,0,200,100,new VertexBufferObjectManager());
+        final Rectangle backRectangle = new Rectangle(0, 0, 200, 100, new VertexBufferObjectManager());
         backRectangle.setColor(Color.PINK);
         backButton.attachChild(backRectangle);
         backButton.attachChild(backButtonText);
         viennaStreetScene.attachChild(backButton);
 
 
-
-        inventoryEntity.attachChild(new Rectangle(0,0,125,780,new VertexBufferObjectManager()));
+        inventoryEntity.attachChild(new Rectangle(0, 0, 125, 780, new VertexBufferObjectManager()));
         viennaStreetScene.attachChild(inventoryEntity);
 
 
@@ -135,18 +133,17 @@ public class ViennaStreetActivity extends SimpleBaseGameActivity {
         viennaStreetScene.registerTouchArea(guitarStringSprite);
 
         loadInventoryItems();
-        final Sprite spriteBG = new Sprite(405,230,CAMERA_WIDTH,CAMERA_HEIGHT,this.backgroundTiledTextureRegion,this.getVertexBufferObjectManager());
+        final Sprite spriteBG = new Sprite(405, 230, CAMERA_WIDTH, CAMERA_HEIGHT, this.backgroundTiledTextureRegion, this.getVertexBufferObjectManager());
         SpriteBackground bg = new SpriteBackground(spriteBG);
         viennaStreetScene.setBackground(bg);
-
 
 
         viennaStreetScene.setOnSceneTouchListener(new IOnSceneTouchListener() {
             @Override
             public boolean onSceneTouchEvent(Scene pScene, TouchEvent pSceneTouchEvent) {
-                if(pSceneTouchEvent.isActionDown() && (pSceneTouchEvent.getY() > 400 && (pSceneTouchEvent.getX()<CAMERA_WIDTH-200 && pSceneTouchEvent.getX()>200) )){
+                if (pSceneTouchEvent.isActionDown() && (pSceneTouchEvent.getY() > 400 && (pSceneTouchEvent.getX() < CAMERA_WIDTH - 200 && pSceneTouchEvent.getX() > 200))) {
                     Intent startIntent = new Intent(ViennaStreetActivity.this.getApplication(), ViennaPracticeActivity.class);
-                    startIntent.putExtra("game",game);
+                    startIntent.putExtra("game", game);
                     ViennaStreetActivity.this.startActivity(startIntent);
                     ViennaStreetActivity.this.finish();
                     game.switchToScene(jlstanford.bsu.edu.game.Scene.VIENNA_PRACTICE);
@@ -159,16 +156,18 @@ public class ViennaStreetActivity extends SimpleBaseGameActivity {
     }
 
     private void toggleColor() {
-        if(guitarStringSprite.getColor() != Color.YELLOW) {
+        if (guitarStringSprite.getColor() != Color.YELLOW) {
             guitarStringSprite.setColor(Color.YELLOW);
-        }else {guitarStringSprite.setColor(Color.WHITE);}
+        } else {
+            guitarStringSprite.setColor(Color.WHITE);
+        }
     }
 
 
     @Override
-    public Engine onCreateEngine(EngineOptions engineOptions){
+    public Engine onCreateEngine(EngineOptions engineOptions) {
         Engine engine = new Engine(engineOptions);
-        if(scheduleEngineStart){
+        if (scheduleEngineStart) {
             engine.start();
             scheduleEngineStart = !scheduleEngineStart;
         }
@@ -176,8 +175,8 @@ public class ViennaStreetActivity extends SimpleBaseGameActivity {
     }
 
     @Override
-    public synchronized  void onResumeGame() {
-        if(this.mEngine != null){
+    public synchronized void onResumeGame() {
+        if (this.mEngine != null) {
             super.onResumeGame();
             scheduleEngineStart = true;
         }
